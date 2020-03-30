@@ -8,13 +8,16 @@ with open('minions.txt', 'r') as f:
     minions = f.readlines()
 
 @app.command()
-def minion_roulette():
+def minion_roulette(clear: bool=False):
     ChosenMinion_text = Path('ChosenMinion.txt')
 
     # Delete ChosenMinion.txt
     if ChosenMinion_text.exists():
         ChosenMinion_text.unlink()
 
+        # Quit if Cleared called
+        if clear:
+            return
 
     chosen_one = random.choice(minions)
     ChosenMinion_text.write_text(f'Target Minion: {chosen_one}')
@@ -22,12 +25,16 @@ def minion_roulette():
 
 
 @app.command()
-def minion_bingo():
+def minion_bingo(clear: bool=False):
     ChosenMinions_text = Path('BingoMinions.txt')
 
     # Delete ChosenMinion.txt
     if ChosenMinions_text.exists():
         ChosenMinions_text.unlink()
+
+        # Quit if Cleared called
+        if clear:
+            return
 
 
     minion_options = random.choices(minions, k=7)
